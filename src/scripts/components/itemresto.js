@@ -8,9 +8,9 @@ class ItemResto extends HTMLElement {
     this.innerHTML = `
     <div tabindex="0" class="itemresto_container">
       
-      
       <div class="image_resto">
-        <img src="https://restaurant-api.dicoding.dev/images/medium/${this._resto.pictureId}"  alt="${this._resto.name}" class="item-resto__image">
+        <img  src="./images/etc/skeleton_img.jpg" alt="${this._resto.name}" width="100%" height="500px" class="item-resto__image lazyload"
+          data-src="https://restaurant-api.dicoding.dev/images/medium/${this._resto.pictureId}">
         <p class="loading-text__indicator-item">Loading image ...</p>
       </div>
 

@@ -22,15 +22,15 @@ class LikerFeature extends HTMLElement {
   async renderPage() {
     const checkDb = await this.isRestoinDb();
     if (checkDb) {
-      this.renderLiked();
+      await this.renderLiked();
     } else {
-      this.renderUnliked();
+      await this.renderUnliked();
     }
   }
 
-  renderUnliked() {
+  async renderUnliked() {
     this.innerHTML = `
-    <div tabindex="0" class="liker__container">
+    <div tabindex="0" aria-label="like this resto" class="liker__container">
       <i class="fa-regular fa-thumbs-up like-button"></i>
       <p>like</p>
     </div>
@@ -38,13 +38,13 @@ class LikerFeature extends HTMLElement {
 
     this.querySelector('.like-button').addEventListener('click', async () => {
       await FavoriteRestaurant.putResto(this._restoDb);
-      this.renderPage();
+      await this.renderPage();
     });
   }
 
-  renderLiked() {
+  async renderLiked() {
     this.innerHTML = `
-    <div tabindex="0" class="liker__container">
+    <div tabindex="0" class="liker__container" aria-label="unlike this resto">
       <i class="fa-solid fa-thumbs-up liked-button"></i>
       <p>unlike</p>
     </div>
@@ -52,7 +52,7 @@ class LikerFeature extends HTMLElement {
 
     this.querySelector('.liked-button').addEventListener('click', async () => {
       await FavoriteRestaurant.deleteResto(this._resto.id);
-      this.renderPage();
+      await this.renderPage();
     });
   }
 }

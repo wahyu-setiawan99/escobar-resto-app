@@ -3,6 +3,8 @@
         "browser": true,
         "es2021": true,
         "node": true
+        // "jasmine": true,
+        // "codeceptjs": true
     },
     "extends": "airbnb-base",
     "overrides": [

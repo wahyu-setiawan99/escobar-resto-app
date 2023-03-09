@@ -1,6 +1,7 @@
 import RestaurantData from '../data/RestaurantData';
 import creatorTemplate from '../view/templates/element-creator';
 import './itemresto';
+import './itemskeleton';
 
 class ListResto extends HTMLElement {
   connectedCallback() {
@@ -21,10 +22,15 @@ class ListResto extends HTMLElement {
     `;
 
     const listRestoContainer = this.querySelector('.list-resto__container');
-    const failedText = this.querySelector('.failed-text');
+    const failedTextContainer = this.querySelector('.failed-text');
+
+    for (let i = 0; i < 20; i += 1) {
+      listRestoContainer.appendChild(document.createElement('item-skeleton'));
+    }
 
     try {
       const listResto = await RestaurantData.ListResto();
+      listRestoContainer.innerHTML = '';
       listResto.forEach((resto) => {
         const restoItem = document.createElement('item-resto');
         restoItem.resto = resto;
@@ -32,7 +38,7 @@ class ListResto extends HTMLElement {
       });
     } catch (error) {
       const errorText = 'Please check your network connection!';
-      creatorTemplate.errorTextElement(errorText, failedText);
+      creatorTemplate.errorTextElement(errorText, failedTextContainer);
     }
   }
 }

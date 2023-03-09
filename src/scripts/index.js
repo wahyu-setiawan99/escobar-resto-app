@@ -8,5 +8,7 @@ import './components/likerfeature';
 import './components/itemreview';
 import './components/submitreview';
 import './components/footerbar';
+import 'lazysizes';
+import 'lazysizes/plugins/parent-fit/ls.parent-fit';
 
 document.addEventListener('DOMContentLoaded', main);

@@ -1,5 +1,6 @@
 import endPointApi from '../globals/endpoint-api';
 import UrlParser from '../routes/url-parser';
+import creatorTemplate from '../view/templates/element-creator';
 
 class SubmitReview extends HTMLElement {
   connectedCallback() {
@@ -36,16 +37,21 @@ class SubmitReview extends HTMLElement {
 
     this.querySelector('.post-feedback').addEventListener('submit', async (event) => {
       event.preventDefault();
+      const postFeedback = this.querySelector('.post-feedback');
+
       try {
         await fetch(endPointApi.addReview, this.value);
         const successText = document.createElement('p');
         successText.classList.add('success-text');
         successText.innerText = 'Your review has been submitted!';
 
-        const postFeedback = this.querySelector('.post-feedback');
         postFeedback.innerHTML = '';
         postFeedback.appendChild(successText);
       } catch (error) {
+        postFeedback.innerHTML = '';
+        const errorText = 'Feedback failed. Please check your connection and refresh the page';
+        await creatorTemplate.errorTextElement(errorText, postFeedback);
+
         throw new Error('Cannot post review');
       }
     });

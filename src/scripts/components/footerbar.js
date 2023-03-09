@@ -1,6 +1,8 @@
 class FooterBar extends HTMLElement {
   connectedCallback() {
-    this.render();
+    setTimeout(() => {
+      this.render();
+    }, 500);
   }
 
   render() {

@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import { openDB } from 'idb';
 import config from '../globals/config';
 
@@ -11,12 +12,20 @@ const dbPromise = openDB(DatabaseName, DatabaseVersion, {
 
 const FavoriteRestaurant = {
   async getResto(id) {
+    if (!id) {
+      return;
+    }
+
     return (await dbPromise).get(ObjectStoreName, id);
   },
   async getAllResto() {
     return (await dbPromise).getAll(ObjectStoreName);
   },
   async putResto(resto) {
+    if (!resto.id) {
+      return;
+    }
+
     return (await dbPromise).put(ObjectStoreName, resto);
   },
   async deleteResto(id) {
